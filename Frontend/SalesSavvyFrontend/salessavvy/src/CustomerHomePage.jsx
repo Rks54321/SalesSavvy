@@ -8,14 +8,14 @@ import './assets/CustomerHomePage.css';
 export default function CustomerHomePage() {
   const [products, setProducts] = useState([]);
   const [cartCount, setCartCount] = useState(0);
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(localStorage.getItem("username") || "Guest");
   const [cartError, setCartError] = useState(false); // State for cart fetch error
   const [isCartLoading, setIsCartLoading] = useState(true); // State for cart loading
 
 
   useEffect(() => {
     fetchProducts();
-    if (username) {
+    if (username && username !== "Guest") {
       fetchCartCount(); // Fetch cart count only if username is available
     }
   }, [username]); // Re-run cart count fetch if username changes
@@ -63,11 +63,16 @@ export default function CustomerHomePage() {
   };
 
   const handleAddToCart = async (productId) => {
-    if (!username) {
+    console.log("Received productId =", productId);
+
+    if (!username || username === "Guest") {
       console.error('Username is required to add items to the cart');
       return;
     }
     try {
+      const payload = { username, productId };
+      console.log("Payload =", payload);
+
       const response = await fetch('http://localhost:9090/api/cart/add', {
         credentials: 'include',
         method: 'POST',
@@ -89,7 +94,7 @@ export default function CustomerHomePage() {
   return (
     <div className="customer-homepage">
       <Header
-        cartCount={isCartLoading ? '...' : cartError ? 'Error' : cartCount}
+        cartCount={isCartLoading ? '...' : cartError ? 0 : cartCount}
         username={username}
       />
       <nav className="navigation">

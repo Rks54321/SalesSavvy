@@ -33,17 +33,24 @@ public class ProductController {
 			HttpServletRequest request) {
 		try {
 			User authenticatedUser = (User) request.getAttribute("authenticatedUser");
-			if(authenticatedUser == null) {
-				return ResponseEntity.status(401).body(Map.of("error", "Unauthorized access"));
-			}
+//			if(authenticatedUser == null) {
+//				return ResponseEntity.status(401).body(Map.of("error", "Unauthorized access"));
+//			}
 			
 			List<Product> products = productService.getProductsByCategory(category);
 			
 			Map<String, Object> response = new HashMap<>();
 			
 			Map<String, String> userInfo = new HashMap<>();
-			userInfo.put("name", authenticatedUser.getUsername());
-            userInfo.put("role", authenticatedUser.getRole().name());
+//			userInfo.put("name", authenticatedUser.getUsername());
+//            userInfo.put("role", authenticatedUser.getRole().name());
+			if(authenticatedUser != null) {
+			    userInfo.put("name", authenticatedUser.getUsername());
+			    userInfo.put("role", authenticatedUser.getRole().name());
+			} else {
+			    userInfo.put("name", "Guest");
+			    userInfo.put("role", "GUEST");
+			}
             response.put("user", userInfo);
             
             List<Map<String, Object>> productList = new ArrayList<>();
@@ -68,21 +75,5 @@ public class ProductController {
 		} catch (RuntimeException e) {
 			return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
 		}
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }

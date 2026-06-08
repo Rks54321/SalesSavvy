@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.server.servlet.context.ServletComponentScan;
 
 @SpringBootApplication
-//@ServletComponentScan
+@ServletComponentScan
 public class SalessavvyApp11Application {
 
 	public static void main(String[] args) {

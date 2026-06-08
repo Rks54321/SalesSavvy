@@ -3,6 +3,7 @@ package com.example.demo.services;
 import java.security.Key;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,11 @@ public class AuthService {
 	public String generateToken(User user) {
 		String token;
 		LocalDateTime now = LocalDateTime.now();
-		JWTToken existingToken = jwtTokenRepository.findByUserId(user.getUserId());
+		List<JWTToken> tokens =
+		        jwtTokenRepository.findByUserId(user.getUserId());
+
+		JWTToken existingToken =
+		        tokens.isEmpty() ? null : tokens.get(0);
 		
 		if(existingToken != null && now.isBefore(existingToken.getExpireAt())) {
 			token = existingToken.getToken();

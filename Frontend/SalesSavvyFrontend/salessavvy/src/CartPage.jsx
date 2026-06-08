@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import "./CartPage.css";
+import "./assets/CartPage.css";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { useNavigate } from "react-router-dom";

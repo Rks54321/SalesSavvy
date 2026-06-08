@@ -1,5 +1,6 @@
 package com.example.demo.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,8 +18,12 @@ public interface JWTTokenRepository extends JpaRepository<JWTToken, Integer>{
     Optional<JWTToken> findByToken(String token);
 
     // Custom query to find tokens by user ID
-    @Query("SELECT t FROM JWTToken t WHERE t.user.userId = :userId")
-    JWTToken findByUserId(@Param("userId") int userId);
+    @Query("""
+    	       SELECT t FROM JWTToken t
+    	       WHERE t.user.userId = :userId
+    	       ORDER BY t.expireAt DESC
+    	       """)
+    	List<JWTToken> findByUserId(@Param("userId") int userId);
 
     // Custom query to delete tokens by user ID
     @Modifying
