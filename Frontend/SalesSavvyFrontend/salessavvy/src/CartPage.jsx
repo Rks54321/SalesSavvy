@@ -116,10 +116,10 @@ const CartPage = () => {
 
       if (!response.ok) throw new Error(await response.text());
       const razorpayOrderId = await response.text();
-
+      
       // Open Razorpay checkout interface
       const options = {
-        key: "rzp_test_LqWBBDbgwot5lh", // Replace with your Razorpay Key ID
+        key: "rzp_test_SmSdLXIV3eCn2m", // Replace with your Razorpay Key ID
         amount: subtotal * 100, // Razorpay expects amount in paise
         currency: "INR",
         name: "SalesSavvy",

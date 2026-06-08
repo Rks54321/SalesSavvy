@@ -1,6 +1,6 @@
 // CustomModal.jsx
 import React, { useEffect, useState } from "react";
-// import "./assets/modalStyles.css";
+import "./assets/modalStyles.css";
 
 const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
   const [formData, setFormData] = useState({
@@ -165,7 +165,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                 </div>
               </form>
 
-              <button onClick={handleSubmit}>Submit</button>
+              <button type="button" onClick={handleSubmit}>Submit</button>
               <button onClick={onClose}>Cancel</button>
             </>
           ) : (
@@ -221,13 +221,13 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                   onChange={handleGeneralInputChange}
                 />
               </form>
-              <button onClick={handleSubmit}>Delete</button>
-              <button onClick={onClose}>Cancel</button>
+              <button type="button" onClick={handleSubmit}>Delete</button>
+              <button type="button" onClick={onClose}>Cancel</button>
             </>
           ) : (
             <div>
               <h2>Product Deleted Successfully</h2>
-              <button onClick={onClose}>Close</button>
+              <button type="button" onClick={onClose}>Close</button>
             </div>
           ))}
 
@@ -243,8 +243,8 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                 onChange={handleGeneralInputChange}
               />
             </form>
-            <button onClick={handleSubmit}>Submit</button>
-            <button onClick={onClose}>Cancel</button>
+            <button type="button" onClick={handleSubmit}>Submit</button>
+            <button type="button" onClick={onClose}>Cancel</button>
           </>
         )}
 
@@ -283,7 +283,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                 <p>Something went wrong.</p>
               </>
             )}
-            <button onClick={onClose}>Back to Dashboard</button>
+            <button type="button" onClick={onClose}>Back to Dashboard</button>
           </>
         )}
         {modalType === "monthlyBusiness" && (
@@ -311,7 +311,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                       onChange={handleInputChange}
                     />
                   </div>
-                  <button onClick={handleSubmit}>Sumbit</button>
+                  <button type="button" onClick={handleSubmit}>Sumbit</button>
                 </>
               )}
               {response && (
@@ -319,13 +319,13 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                   <div className="business-response-item">
                     <div>Total Business: ₹ </div>
                     <div>
-                      {response?.dailyBusiness?.totalBusiness?.toFixed(2)}
+                      {response?.monthlyBusiness?.totalBusiness?.toFixed(2)}
                     </div>
                   </div>
                   <div className="business-response-item">
                     <h5>Category Sales</h5>
                   </div>
-                  {Object.keys(response?.monthlyBusiness?.categorySales)?.map(
+                  {Object.keys(response?.monthlyBusiness?.categorySales || {}).map(
                     (key) => {
                       return (
                         <div key={key} className="business-response-item">
@@ -340,7 +340,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                 </div>
               )}
 
-              <button onClick={onClose}>Cancel</button>
+              <button type="button" onClick={onClose}>Cancel</button>
             </form>
           </>
         )}
@@ -374,7 +374,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                   <div className="business-response-item">
                     <h5>Category Sales</h5>
                   </div>
-                  {Object.keys(response?.dailyBusiness?.categorySales)?.map(
+                  {Object.keys(response?.dailyBusiness?.categorySales || {}).map(
                     (key) => {
                       return (
                         <div key={key} className="business-response-item">
@@ -389,7 +389,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                 </div>
               )}
 
-              <button onClick={onClose}>Cancel</button>
+              <button type="button" onClick={onClose}>Cancel</button>
             </form>
           </>
         )}
@@ -423,7 +423,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                   <div className="business-response-item">
                     <h5>Category Sales</h5>
                   </div>
-                  {Object.keys(response?.yearlyBusiness?.categorySales)?.map(
+                  {Object.keys(response?.yearlyBusiness?.categorySales || {}).map(
                     (key) => {
                       return (
                         <div key={key} className="business-response-item">
@@ -438,7 +438,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                 </div>
               )}
 
-              <button onClick={onClose}>Cancel</button>
+              <button type="button" onClick={onClose}>Cancel</button>
             </form>
           </>
         )}
@@ -462,7 +462,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                   <div className="business-response-item">
                     <h5>Category Sales</h5>
                   </div>
-                  {Object.keys(response?.overallBusiness?.categorySales)?.map(
+                  {Object.keys(response?.overallBusiness?.categorySales || {}).map(
                     (key) => {
                       return (
                         <div key={key} className="business-response-item">
@@ -477,7 +477,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                 </div>
               )}
 
-              <button onClick={onClose}>Cancel</button>
+              <button type="button" onClick={onClose}>Cancel</button>
             </form>
           </>
         )}
@@ -566,13 +566,13 @@ const ModifyUserFormComponent = ({ onClose }) => {
     return (
       <form onSubmit={handleFetchUser}>
         <div className="modal-form-item">
-          <label for="user-id">User ID:</label>
+          <label htmlFor="user-id">User ID:</label>
           <input
             type="text"
             id="user-id"
             name="user-id"
-            value={userId}
-            onChange={(e) => userId(e.target.value)}
+            value={userId || ""}
+            onChange={(e) => setUserId(e.target.value)}
           />
         </div>
         <button type="submit">Get User</button>
@@ -585,17 +585,17 @@ const ModifyUserFormComponent = ({ onClose }) => {
       <div>
         <form onSubmit={handleUpdateUser} className="modal-form">
           <div className="modal-form-item">
-            <label for="user-id">User ID:</label>
+            <label htmlFor="user-id">User ID:</label>
             <input
               type="text"
               id="user-id"
               name="user-id"
               value="17"
-              readonly
+              readOnly
             />
           </div>
           <div className="modal-form-item">
-            <label for="username">Username:</label>
+            <label htmlFor="username">Username:</label>
             <input
               type="text"
               id="username"
@@ -605,7 +605,7 @@ const ModifyUserFormComponent = ({ onClose }) => {
           </div>
 
           <div className="modal-form-item">
-            <label for="email">Email:</label>
+            <label htmlFor="email">Email:</label>
             <input
               type="email"
               id="email"
@@ -614,7 +614,7 @@ const ModifyUserFormComponent = ({ onClose }) => {
             />
           </div>
           <div className="modal-form-item">
-            <label for="role">Role:</label>
+            <label htmlFor="role">Role:</label>
             <input
               type="text"
               id="role"

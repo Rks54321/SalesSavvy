@@ -84,6 +84,7 @@ public class AuthenticationFilter implements Filter {
         // Extract and validate the token
         String token = getAuthTokenFromCookies(httpRequest);
         System.out.println(token);
+        
         if (token == null || !authService.validateToken(token)) {
             sendErrorResponse(httpResponse, HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: Invalid or missing token");
             return;

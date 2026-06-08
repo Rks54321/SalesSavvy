@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "./Footer";
 import Logo from "./Logo";
-// import "./assets/styles.css";
+import "./assets/styles.css";
 import CustomModal from "./CustomModal";
 
 const AdminDashboard = () => {

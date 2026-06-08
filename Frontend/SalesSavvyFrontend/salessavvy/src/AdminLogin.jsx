@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import "./assets/styles.css";
+import "./assets/styles.css";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -88,7 +88,7 @@ export default function LoginPage() {
           </form>
           <div className="form-footer">
             <a href="/" className="form-link">
-              Not Admin? Login As USer ! 
+              Not Admin? Login As User ! 
             </a>
           </div>
         </div>
